@@ -1,0 +1,27 @@
+# Stub for Step 4B in the build guide (GitHub Actions -> EC2 VM deploy).
+# Not active until you add the secrets below in your repo settings:
+#   EC2_HOST, EC2_USER, EC2_SSH_KEY
+#
+# Uncomment the "on" trigger once your VM is provisioned and ready to receive deploys.
+
+name: Deploy to EC2
+
+on:
+  workflow_dispatch:  # manual trigger only, for now
+  # push:
+  #   branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd fleet-readiness-app
+            git pull
+            docker compose up -d --build
