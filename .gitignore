@@ -1,0 +1,19 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Data outputs
+data/output/
+
+# OS / editor
+.DS_Store
+.vscode/settings.json
+
+# Docker
+*.log
